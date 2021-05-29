@@ -152,24 +152,26 @@ fixed_carry <- function(duration, days = F){
     Rate_JPY <- paste("JPY_", duration, "Y", sep = "")
     Rate_NZD <- paste("NZD_", duration, "Y", sep = "")
   }
-
+  
   
   #data set
   Carry <- Rates[c("Date", Rate_JPY, Rate_NZD, "Spot")]
-  
-  #calculate yield difference (NZD - JPY)
-  Carry$diff <- Carry[[Rate_NZD]] - Carry[[Rate_JPY]]
-  
-  
+
   #calculate implied Forward Rate & add delivery date as t + duration (in years)
+  
   if (days == T){
+    #calculate forward discount factor
+    Carry$discount <- (((1 + Carry[[Rate_JPY]]/100)^(duration/365)) / ((1 + Carry[[Rate_NZD]]/100)^(duration/365)))
     
-    Carry$fwd <- Carry$Spot*(1-Carry$diff/100)^(duration/365)
+    Carry$fwd <- Carry$Spot* Carry$discount
     Carry$del_date <- Carry$Date %m+% days(duration)
     
   } else{
     
-    Carry$fwd <- Carry$Spot*(1-Carry$diff/100)^duration
+    #calculate forward discount factor
+    Carry$discount <- ((1 + Carry[[Rate_JPY]]/100) / (1 + Carry[[Rate_NZD]]/100))^duration
+    
+    Carry$fwd <- Carry$Spot * Carry$discount
     Carry$del_date <- Carry$Date %m+% years(duration)
   }
   
@@ -187,7 +189,7 @@ fixed_carry <- function(duration, days = F){
 ##############################################################################
 
 #plot spot vs forward at time of delivery
-plot_rates <- function(caption = "", title = "", data, date = "Delivery"){
+plot_rates <- function(caption, title, data, date){
   
   data <- na.omit(data)
   
@@ -202,7 +204,8 @@ plot_rates <- function(caption = "", title = "", data, date = "Delivery"){
   
   plot <- ggplot(data = data, aes(x = eval(x)))+
     geom_line(aes(y = Spot_at_del, color = "Spot at Del"))+
-    geom_line(aes(y = fwd, color = "implied Fwd Rate"))+
+    geom_line(aes(y = fwd, color = "Fwd Rate 
+at Inception"))+
     labs(color = "", title = title, caption = caption, y = "Difference",
          x = "Date")+
     theme_classic()
@@ -211,7 +214,7 @@ plot_rates <- function(caption = "", title = "", data, date = "Delivery"){
 }
 
 #plot difference between forward and spot at delivery
-plot_diff <- function(title = "", caption = "", data, date = "Delivery"){
+plot_diff <- function(title, caption, data, date){
   
   if (date == "Entry"){
     
@@ -223,11 +226,11 @@ plot_diff <- function(title = "", caption = "", data, date = "Delivery"){
   }
   
   data <- na.omit(data)
-
+  
   plot <- ggplot(data = data, aes(x = eval(x)))+
     geom_line(aes(y = Spot_at_del - fwd))+
     geom_abline(intercept = 0, slope = 0)+
-    geom_abline(intercept = mean(data$Spot_at_del - data$fwd, na.rm = T),
+    geom_abline(intercept = mean(Carry$Spot_at_del - Carry$fwd, na.rm = T),
                 slope = 0, color = "red")+
     labs(title = title, caption = caption, y = "Difference",
          x = "Date")+
