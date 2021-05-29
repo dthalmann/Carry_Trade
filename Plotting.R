@@ -6,7 +6,16 @@
 #1Y / 1Y Fixed Carry
 #------------------------------------------------------------------------------ 
 
-Carry_1 <- fixed_carry(1)
+Carry_0 <- fixed_carry(1)
+
+plot_rates("caption","title", Carry_0)
+plot_diff("caption","title", Carry_0)
+
+#------------------------------------------------------------------------------
+#1Y / 1Y Fixed Carry
+#------------------------------------------------------------------------------ 
+
+Carry_1 <- fixed_carry(2)
 
 plot_rates("caption","title", Carry_1)
 plot_diff("caption","title", Carry_1)
