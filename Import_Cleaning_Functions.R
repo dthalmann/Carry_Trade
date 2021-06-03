@@ -5,7 +5,7 @@
 library(tidyverse)
 library(lubridate)
 library(zoo)
-setwd("C:/Users/sveng/OneDrive/Dokumente/Carry")
+setwd("~/Desktop/Bachelor 2021/Carry Trade Essay")
 
 ###############################################################################
 #Path to Data Sets
