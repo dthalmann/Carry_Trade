@@ -3,62 +3,122 @@
 ##############################################################################
 
 #------------------------------------------------------------------------------
-#1Y / 1Y Fixed Carry
+#1Y / 1Y Carry
 #------------------------------------------------------------------------------ 
 
-Carry_0 <- fixed_carry(1)
+Carry_1 <- carry(1)
 
-plot_rates("caption","title", Carry_0)
-plot_diff("caption","title", Carry_0)
+plot_rates(caption ="", title="", Carry_1)
+plot_diff(caption ="", title="",Carry_1)
+
+#with titles and caption
+Carry_1 <- carry(1)
+plot_rates(caption ="Date shows spot price at date of forward delivery
+           Forward rate shows implied forward rate 1 year earlier based on yield differentials", 
+           title="1-Year Carry JPY/NZD", 
+           Carry_1)
+plot_diff(caption ="> implies that NZD was stronger / JPY was weaker than predicted
+          < implies that NZD was weaker / JPY was stronger than predicted", 
+          title="JPY/NZD Spot at Delivery - Implied Forward (1 Year)",
+          Carry_1)
+
+
+#-----------------------------------------------------------------------------
+#2Y / 2Y Carry
+#------------------------------------------------------------------------------ 
+
+Carry_2 <- carry(2)
+
+plot_rates(caption ="", title="", Carry_2)
+plot_diff(caption ="", title="", Carry_2)
+
+#with titles and caption
+Carry_2 <- carry(2)
+plot_rates(caption ="Date shows spot price at date of forward delivery
+           Forward rate shows implied forward rate 2 years earlier based on yield differentials", 
+           title="2-Year Carry JPY/NZD", 
+           Carry_2)
+plot_diff(caption ="> implies that NZD was stronger / JPY was weaker than predicted
+          < implies that NZD was weaker / JPY was stronger than predicted", 
+          title="JPY/NZD Spot at Delivery - Implied Forward (2 Years)",
+          Carry_2)
 
 #------------------------------------------------------------------------------
-#1Y / 1Y Fixed Carry
+#90d / 90d Carry
 #------------------------------------------------------------------------------ 
 
-Carry_1 <- fixed_carry(2)
+Carry_90 <- carry(90, days = T)
 
-plot_rates("caption","title", Carry_1)
-plot_diff("caption","title", Carry_1)
+plot_rates(caption ="", title="", Carry_90)
+plot_diff(caption ="", title="", Carry_90)
+
+#with titles and caption
+Carry_90 <- carry(90, days = T)
+plot_rates(caption ="Date shows spot price at date of forward delivery
+           Forward rate shows implied forward rate 90 days earlier based on yield differentials", 
+           title="90-Day Carry JPY/NZD",
+           Carry_90)
+plot_diff(caption ="> implies that NZD was stronger / JPY was weaker than predicted
+          < implies that NZD was weaker / JPY was stronger than predicted", 
+          title="JPY/NZD Spot at Delivery - Implied Forward (90 Days)",
+          Carry_90)
 
 #------------------------------------------------------------------------------
-#90d / 90d Fixed Carry
+#5Y / 5Y Carry
 #------------------------------------------------------------------------------ 
 
-Carry_2 <- fixed_carry(90, days = T)
+Carry_5 <- carry(5)
 
-plot_rates("caption","title", Carry_2)
-plot_diff("caption","title", Carry_2)
+plot_rates(caption ="", title="", Carry_5)
+plot_diff(caption ="", title="", Carry_5)
+
+#with titles and caption
+Carry_5 <- carry(5)
+plot_rates(caption ="Date shows spot price at date of forward delivery
+           Forward rate shows implied forward rate 5 years earlier based on yield differentials", 
+           title="5-Year Carry JPY/NZD", 
+           Carry_5)
+plot_diff(caption ="> implies that NZD was stronger / JPY was weaker than predicted
+          < implies that NZD was weaker / JPY was stronger than predicted", 
+          title="JPY/NZD Spot at Delivery - Implied Forward (5 Years)",
+          Carry_5)
 
 #------------------------------------------------------------------------------
-#5Y / 5Y Fixed Carry
+#10Y / 10Y Carry
 #------------------------------------------------------------------------------ 
 
-Carry_3 <- fixed_carry(5)
+Carry_10 <- carry(10)
 
-plot_rates("caption","title", Carry_3)
-plot_diff("caption","title", Carry_3)
+plot_rates(caption ="", title="", Carry_10)
+plot_diff(caption ="", title="", Carry_10)
+
+#with titles and caption
+Carry_10 <- carry(10)
+plot_rates(caption ="Date shows spot price at date of forward delivery
+           Forward rate shows implied forward rate 10 years earlier based on yield differentials", 
+           title="10-Year Carry JPY/NZD", 
+           Carry_10)
+plot_diff(caption ="> implies that NZD was stronger / JPY was weaker than predicted
+          < implies that NZD was weaker / JPY was stronger than predicted", 
+          title="JPY/NZD Spot at Delivery - Implied Forward (10 Years)",
+          Carry_10)
 
 #------------------------------------------------------------------------------
-#10Y / 10Y Fixed Carry
+#Plot: Interest Rates / Exchange Rate
 #------------------------------------------------------------------------------ 
 
-Carry_4 <- fixed_carry(10)
-
-plot_rates("caption","title", Carry_4)
-plot_diff("caption","title", Carry_4)
-
-
-#------------------------------------------------------------------------------
-#Other Plots
-#------------------------------------------------------------------------------ 
-
-#Interest Rates / Exchange Rate
+#Interest Rates / Exchange Rate (1Year)
 ggplot(data = Rates, aes(x = Date))+
   geom_line(aes(y = NZD_1Y, color = "NZD_1Y"))+
   geom_line(aes(y = JPY_1Y, color = "JPY_1Y"))+
   geom_line(aes(y = Spot/15, color = "JPY/NZD"))+
-  scale_y_continuous(name = "90d Rates",
+  scale_y_continuous(name = "1 Year Rates",                      #adapt axis according to the used rate
                      sec.axis = sec_axis(~.*15, name = "JPY/NZD")
   )+
-  labs(color = "", title = "", caption = "", y = "")+
-  theme_classic()
+  labs(color = "", title = "JPY/NZD Exchange Rate and 1-Year Interest Rates", caption = "", y = "")+
+  scale_x_date(breaks = function(x) seq.Date(from = ymd("1990-01-01"), to = ymd("2020-01-01"), 
+                                             by = "5 years"), date_labels = "%Y")+
+  theme_classic()+ theme(axis.text.x = element_text(size=10),
+                         axis.text.y = element_text(size=10),
+                         plot.title = element_text(size=12),
+                         legend.position = c(0.9,0.9))
