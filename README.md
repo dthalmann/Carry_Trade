@@ -18,7 +18,7 @@ Reserve Bank of New Zealand, Statistics (2021). *Wholesale Interest Rates - B2*,
 
 - **JPY Interst Rates**
 
-Ministry of Finance, JAPAN, Japanese Government Bonds (2021). *Historical Data*, Retreived from: https://www.mof.go.jp/english/jgbs/reference/interest_rate/index.htm
+Ministry of Finance, Japan, Japanese Government Bonds (2021). *Historical Data*, Retreived from: https://www.mof.go.jp/english/jgbs/reference/interest_rate/index.htm
 
 
 ## How to use Code 
