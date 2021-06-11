@@ -99,6 +99,7 @@ NZD_Rates <- NZD_Rates[NZD_Rates$Date >= as.Date("01/01/1998", format = "%d/%m/%
 #JPY Interest Rates
 #------------------------------------------------------------------------------  
 
+
 #load data files
 JPY_Rate_3M <- read_csv(JPY3MTD156N) #3month rate
 JPY_Rate_1d <- read_csv(IRSTCI01JPM156N) #overnight rate
@@ -148,9 +149,11 @@ JPY_Rates <- JPY_Rates[JPY_Rates$Date >= as.Date("01/01/1998", format = "%d/%m/%
 #replace the first value, which is missing (NA), by the first value available (21. value)
 JPY_Rates$JPY_1d[1] <- JPY_Rates$JPY_1d[21]
 
+
 #-------------------------------------------------------------------------------------
 #Combine Interest - and Exchange Rates & add missing Values as Values from Day before
 #-------------------------------------------------------------------------------------
+
 
 #Problem: interest rates are only reported for weekdays
 #create vector "Date" including all Dates, also weekends
@@ -179,6 +182,7 @@ Rates <- Rates %>% fill(names(Rates)[2:22], .direction = "down")
 #Function for Fixed Term / Fixed Rate Carries (Duration in Years or Days)
 ###############################################################################
 
+#name function carry
 carry <- function(duration, days = F){
   
   if (days == T){
@@ -197,7 +201,7 @@ carry <- function(duration, days = F){
   Carry <- Rates[c("Date", Rate_JPY, Rate_NZD, "Spot")]
   
   
-  #calculate implied Forward Rate & add delivery date + duration (in days or years respectively)
+  #calculate the Implied Forward Rate & add Delivery Date + Duration (in days or years respectively)
   
   if (days == T){
     #calculate forward discount factor for interest during the year
