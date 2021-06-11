@@ -4,7 +4,7 @@
 
 ## Data
 
--**JPY 1 Day Rates
+- **JPY 1 Day Rates
 
 Federal Reserve Bank of St.Louis (2021). *Immediate Rates: Less than 24 Hours: Call Money/Interbank Rate for Japan(IRSTCI01JPM156N)*, Retrieved, from: https://fred.stlouisfed.org/series/IRSTCI01JPM156N
 
