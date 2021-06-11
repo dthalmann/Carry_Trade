@@ -7,12 +7,6 @@
 #------------------------------------------------------------------------------ 
 
 Carry_1 <- carry(1)
-
-plot_rates(caption ="", title="", Carry_1)
-plot_diff(caption ="", title="",Carry_1)
-
-#with titles and caption
-Carry_1 <- carry(1)
 plot_rates(caption ="Date shows spot price at date of forward delivery
            Forward rate shows implied forward rate 1 year earlier based on yield differentials", 
            title="1-Year Carry JPY/NZD", 
@@ -22,37 +16,10 @@ plot_diff(caption ="> implies that NZD was stronger / JPY was weaker than predic
           title="JPY/NZD Spot at Delivery - Implied Forward (1 Year)",
           Carry_1)
 
-
-#-----------------------------------------------------------------------------
-#2Y / 2Y Carry
-#------------------------------------------------------------------------------ 
-
-Carry_2 <- carry(2)
-
-plot_rates(caption ="", title="", Carry_2)
-plot_diff(caption ="", title="", Carry_2)
-
-#with titles and caption
-Carry_2 <- carry(2)
-plot_rates(caption ="Date shows spot price at date of forward delivery
-           Forward rate shows implied forward rate 2 years earlier based on yield differentials", 
-           title="2-Year Carry JPY/NZD", 
-           Carry_2)
-plot_diff(caption ="> implies that NZD was stronger / JPY was weaker than predicted
-          < implies that NZD was weaker / JPY was stronger than predicted", 
-          title="JPY/NZD Spot at Delivery - Implied Forward (2 Years)",
-          Carry_2)
-
 #------------------------------------------------------------------------------
 #90d / 90d Carry
 #------------------------------------------------------------------------------ 
 
-Carry_90 <- carry(90, days = T)
-
-plot_rates(caption ="", title="", Carry_90)
-plot_diff(caption ="", title="", Carry_90)
-
-#with titles and caption
 Carry_90 <- carry(90, days = T)
 plot_rates(caption ="Date shows spot price at date of forward delivery
            Forward rate shows implied forward rate 90 days earlier based on yield differentials", 
@@ -68,12 +35,6 @@ plot_diff(caption ="> implies that NZD was stronger / JPY was weaker than predic
 #------------------------------------------------------------------------------ 
 
 Carry_5 <- carry(5)
-
-plot_rates(caption ="", title="", Carry_5)
-plot_diff(caption ="", title="", Carry_5)
-
-#with titles and caption
-Carry_5 <- carry(5)
 plot_rates(caption ="Date shows spot price at date of forward delivery
            Forward rate shows implied forward rate 5 years earlier based on yield differentials", 
            title="5-Year Carry JPY/NZD", 
@@ -87,12 +48,6 @@ plot_diff(caption ="> implies that NZD was stronger / JPY was weaker than predic
 #10Y / 10Y Carry
 #------------------------------------------------------------------------------ 
 
-Carry_10 <- carry(10)
-
-plot_rates(caption ="", title="", Carry_10)
-plot_diff(caption ="", title="", Carry_10)
-
-#with titles and caption
 Carry_10 <- carry(10)
 plot_rates(caption ="Date shows spot price at date of forward delivery
            Forward rate shows implied forward rate 10 years earlier based on yield differentials", 
