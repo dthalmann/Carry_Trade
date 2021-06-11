@@ -28,7 +28,7 @@ IRSTCI01JPM156N <-  "IRSTCI01JPM156N.csv"
 
 
 #------------------------------------------------------------------------------
-#JPY/NZD Exchange Rate (our convention: E = NZD in terms of JPY)
+#JPY/NZD Exchange Rate (convention: E = NZD in terms of JPY)
 #------------------------------------------------------------------------------
 
 
@@ -74,13 +74,13 @@ JPY_NZD <- JPY_NZD[JPY_NZD$Date >= as.Date("01/01/1998", format = "%d/%m/%Y"),]
 NZD_Rates_1 <- read_csv(NZD_Rates_1, skip=1)[1:10]
 NZD_Rates_2 <- read_csv(NZD_Rates_2, skip=1)[1:10]
 
-#Combine rates for all dates
+#combine rates for all dates
 NZD_Rates <- rbind(NZD_Rates_1, NZD_Rates_2)
 
-#Create numerics for colums 2-10 with direct command lapply (listapply)
+#create numerics for colums 2-10 with direct command lapply
 NZD_Rates[2:10] <- lapply(NZD_Rates[2:10], as.numeric)
 
-#Remove the second column "official cash rate" and rows 1-3
+#remove the second column "official cash rate" and rows 1-3
 NZD_Rates <- NZD_Rates[-(1:3),-2]
 
 #reformate date
@@ -110,7 +110,7 @@ names(JPY_Rate_1d) <- c("Date", "1d")
 #reformate 3M column by assigning numbers
 JPY_Rate_3M$`3M`<- as.numeric(JPY_Rate_3M$`3M`)
 
-#delete first row and formate Dates
+#remove first row and formate Dates
 JPY_Rates <- read_csv(JPY_Yields, skip = 1) #other rates
 JPY_Rates$Date <- as.Date(JPY_Rates$Date, format = "%d/%m/%Y")
 
@@ -144,16 +144,15 @@ names(JPY_Rates) <- c("Date", "JPY_1Y", "JPY_2Y", "JPY_3Y",
 JPY_Rates <- JPY_Rates[JPY_Rates$Date >= as.Date("01/01/1998", format = "%d/%m/%Y"),]
 
 #For JPY_Rate_1d there is only a value available about every 30 days
-#to approximate the missing values we have to define the first value as the one available after 30 days
+#to approximate the missing values one has to define the first value as the one available after 30 days
 #replace the first value, which is missing (NA), by the first value available (21. value)
 JPY_Rates$JPY_1d[1] <- JPY_Rates$JPY_1d[21]
 
 #-------------------------------------------------------------------------------------
-#combine Interest - and Exchange Rates & add missing Values as Values from Day before
+#Combine Interest - and Exchange Rates & add missing Values as Values from Day before
 #-------------------------------------------------------------------------------------
-#Combine Interest - and Exchange Rates & add missing dates
-#problem: interest rates are only reported for weekdays
 
+#Problem: interest rates are only reported for weekdays
 #create vector "Date" including all Dates, also weekends
 Date <- seq(as.Date("1998-01-01"), as.Date("2021-01-01"), by = "1 days")
 
