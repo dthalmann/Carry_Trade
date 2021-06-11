@@ -1,4 +1,4 @@
-# NZD / JPY Carry Strategies 
+# JPY / NZD Carry Strategies 
 
 - Purpose of exercise Paper...
 
