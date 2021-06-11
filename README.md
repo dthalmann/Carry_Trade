@@ -4,6 +4,10 @@
 
 ## Data
 
+-**JPY 1 Day Rates
+
+Federal Reserve Bank of St.Louis (2021). *Immediate Rates: Less than 24 Hours: Call Money/Interbank Rate for Japan(IRSTCI01JPM156N)*, Retrieved, from: https://fred.stlouisfed.org/series/IRSTCI01JPM156N
+
 - **JPY 90 Days Libor**
 
 Federal Reserve Bank of St.Louis, FRED Economic Data (2021). *3-Month London Interbank Offered Rate (LIBOR), based on Japanese Yen ((JPY3MTD156N)*, Retreived from: https://fred.stlouisfed.org/series/JPY3MTD156N
