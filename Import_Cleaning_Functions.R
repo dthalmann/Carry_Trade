@@ -108,29 +108,18 @@ JPY_Rate_1d <- read_csv(IRSTCI01JPM156N) #overnight rate
 names(JPY_Rate_3M) <- c("Date", "3M")
 names(JPY_Rate_1d) <- c("Date", "1d")
 
-#reformate 3M column by assigning numbers
+#reformate 3M column as numberics
 JPY_Rate_3M$`3M`<- as.numeric(JPY_Rate_3M$`3M`)
 
 #remove first row and formate Dates
-JPY_Rates <- read_csv(JPY_Yields, skip = 1) #other rates
+JPY_Rates <- read_csv(JPY_Yields, skip = 1)
 JPY_Rates$Date <- as.Date(JPY_Rates$Date, format = "%d/%m/%Y")
 
-#final dataset is called JPY_Rates
-#combine datasets, columns cannot just be combined, because dates may vary (There is not a value for every Date in both columns) 
-#--> use merge (however, can only combine two columns at the time)
-#in both data sets there is a column with dates based on which the datasets are merged (by = "Date")
-#1. dataframe = x, 2. dataframe = y
-#all.x = T means if x exists and y does not , it just says NA for the missing y-value
-#all.y = T means if y exists and y does not , it just says NA for the missing x-value
-#this makes sure that we do not eliminate values that are exclusively available in one dataframe or the other
-#we only need column 1-10 and column 17
-
+#Combine Rates and delete unnecessary Data
 JPY_Rates <- merge(JPY_Rates, JPY_Rate_3M, by ="Date", all.x = T, all.y = T)[c(1:11,17)]
-
-#merge the merged dataset (JPY_Rates) with the JPY_Rate_1d and call it JPY_Rates again
 JPY_Rates <- merge(JPY_Rates, JPY_Rate_1d, by ="Date", all.x = T, all.y = T)
 
-#column 10Y is still in characters and needs to be converted into numerics
+#reformate column 10Y as numerics
 JPY_Rates$'10Y' <- as.numeric(JPY_Rates$'10Y')
 
 #rename dataset's columns
@@ -138,8 +127,6 @@ names(JPY_Rates) <- c("Date", "JPY_1Y", "JPY_2Y", "JPY_3Y",
                       "JPY_4Y", "JPY_5Y", "JPY_6Y",
                       "JPY_7Y", "JPY_8Y", "JPY_9Y",
                       "JPY_10Y", "JPY_90d", "JPY_1d")
-
-
 
 #select all data starting from 01/01/1998
 JPY_Rates <- JPY_Rates[JPY_Rates$Date >= as.Date("01/01/1998", format = "%d/%m/%Y"),]
@@ -154,12 +141,11 @@ JPY_Rates$JPY_1d[1] <- JPY_Rates$JPY_1d[21]
 #Combine Interest - and Exchange Rates & add missing Values as Values from Day before
 #-------------------------------------------------------------------------------------
 
-
 #Problem: interest rates are only reported for weekdays
 #create vector "Date" including all Dates, also weekends
 Date <- seq(as.Date("1998-01-01"), as.Date("2021-01-01"), by = "1 days")
 
-#convert Vector "Date" into a dataframe (because the merge function only works for two dataframes)
+#convert Vector "Date" into a dataframe
 Date <- as.data.frame(Date)
 
 #merge the NZD and JPY Rates 
@@ -182,7 +168,6 @@ Rates <- Rates %>% fill(names(Rates)[2:22], .direction = "down")
 #Function for Fixed Term / Fixed Rate Carries (Duration in Years or Days)
 ###############################################################################
 
-#name function carry
 carry <- function(duration, days = F){
   
   if (days == T){
@@ -237,7 +222,7 @@ carry <- function(duration, days = F){
 #plot spot vs forward at time of delivery
 plot_rates <- function(caption = "", title = "", data, date ="Delivery"){
   
-  data <- na.omit(data) #eliminate NA due to missing delivery date spot rate
+  data <- na.omit(data)
   
   if (date == "Entry"){
     
