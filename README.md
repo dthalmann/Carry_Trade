@@ -1,6 +1,6 @@
 # JPY / NZD Carry Strategies 
 
-- This exercise is based on an assignment in International Economics at the University of St. Gallen. The purpose is to examine whether carry trading involving JPY and NZD has been profitable over the past 20 years. In order to examine this, implied forward rates are calculated based on current exchange rates and interest differentials, and plotted against the spot rate at delivery.![image](https://user-images.githubusercontent.com/85030370/121653219-c0020980-ca9c-11eb-8d6e-0afc6d92fc81.png)
+- This exercise is based on an assignment in International Economics at the University of St. Gallen. The purpose is to examine whether carry trading involving JPY and NZD has been profitable over the past 20 years. In order to examine this, implied forward rates are calculated based on current exchange rates and interest differentials, and plotted against the spot rate at delivery.
 
 ## Data
 
